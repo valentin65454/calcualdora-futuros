@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Contratos TopStep</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="watermark">Valentin Avalos TRADEX ❤️</div>
+    <div class="container">
+        <div class="header">
+            <h1>Calculadora TopStep</h1>
+            <p>Optimiza tu gestión de riesgo en trading de futuros</p>
+        </div>
+
+        <div class="main-content">
+            <div class="input-section">
+                <h2 style="margin-bottom: 20px; color: #2c3e50;">📊 Parámetros de Trading</h2>
+                
+                <div class="input-group">
+                    <label for="riskAmount">💰 Capital de Riesgo (USD)</label>
+                    <input type="number" id="riskAmount" placeholder="Ej: 100" min="1" step="0.01">
+                </div>
+
+                <div class="input-group">
+                    <label for="asset">📈 Activo</label>
+                    <select id="asset">
+                        <option value="">Selecciona un activo</option>
+                        <option value="ES">E-mini S&P 500 (ES)</option>
+                        <option value="NQ">E-mini NASDAQ (NQ)</option>
+                        <option value="YM">E-mini Dow Jones (YM)</option>
+                        <option value="RTY">E-mini Russell 2000 (RTY)</option>
+                        <option value="CL">Crude Oil (CL)</option>
+                        <option value="GC">Gold (GC)</option>
+                        <option value="SI">Silver (SI)</option>
+                        <option value="NG">Natural Gas (NG)</option>
+                        <option value="ZN">10-Year Treasury Note (ZN)</option>
+                        <option value="ZB">30-Year Treasury Bond (ZB)</option>
+                        <option value="6E">Euro FX (6E)</option>
+                        <option value="6B">British Pound (6B)</option>
+                        <option value="6J">Japanese Yen (6J)</option>
+                        <option value="ZC">Corn (ZC)</option>
+                        <option value="ZS">Soybeans (ZS)</option>
+                        <option value="ZW">Wheat (ZW)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="stopLossTicks">🛑 Stop Loss (Ticks)</label>
+                    <input type="number" id="stopLossTicks" placeholder="Ej: 8" min="1" step="1">
+                </div>
+
+                <button class="calculate-btn" onclick="calculateContracts()">
+                    🧮 Calcular Contratos
+                </button>
+            </div>
+
+            <div class="results-section">
+                <h2 style="margin-bottom: 20px; color: #2c3e50;">📋 Resultados</h2>
+                <div id="results">
+                    <div style="text-align: center; color: #7f8c8d; padding: 40px;">
+                        <p>Ingresa los datos y presiona calcular para ver los resultados</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">ℹ️ Información de Contratos</h3>
+                <div class="info-grid" id="assetInfo">
+                    <div class="info-card">
+                        <h4>Selecciona un activo</h4>
+                        <p>Elige un activo de la lista para ver su información detallada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
