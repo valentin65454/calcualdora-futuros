@@ -3,77 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Contratos TopStep</title>
-    <link rel="stylesheet" href="index.css">
+    <title>Calculadora TopStep - Valentin Avalos</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="watermark">Valentin Avalos TRADEX ❤️</div>
+    <!-- Watermark -->
+    <div class="watermark">
+        VALENTIN AVALOS TRADEX ❤️
+    </div>
+
     <div class="container">
+        <!-- Header -->
         <div class="header">
-            <h1>Calculadora TopStep</h1>
-            <p>Optimiza tu gestión de riesgo en trading de futuros</p>
+            <div class="header-title">
+                <svg class="calculator-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="4" y="2" width="16" height="20" rx="2"/>
+                    <line x1="8" y1="6" x2="16" y2="6"/>
+                    <line x1="8" y1="10" x2="16" y2="10"/>
+                    <line x1="8" y1="14" x2="16" y2="14"/>
+                    <line x1="8" y1="18" x2="16" y2="18"/>
+                </svg>
+                <h1>Calculadora TopStep</h1>
+            </div>
+            <p class="header-subtitle">
+                Calcula contratos estándar y micros según tu riesgo
+            </p>
         </div>
 
-        <div class="main-content">
-            <div class="input-section">
-                <h2 style="margin-bottom: 20px; color: #2c3e50;">📊 Parámetros de Trading</h2>
-                
-                <div class="input-group">
-                    <label for="riskAmount">💰 Capital de Riesgo (USD)</label>
-                    <input type="number" id="riskAmount" placeholder="Ej: 100" min="1" step="0.01">
-                </div>
+        <div class="main-grid">
+            <!-- Panel de Entrada -->
+            <div class="input-panel">
+                <h2 class="panel-title">
+                    <svg class="dollar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    Configuración
+                </h2>
 
+                <!-- Selección de Activo -->
                 <div class="input-group">
-                    <label for="asset">📈 Activo</label>
-                    <select id="asset">
-                        <option value="">Selecciona un activo</option>
-                        <option value="ES">E-mini S&P 500 (ES)</option>
-                        <option value="NQ">E-mini NASDAQ (NQ)</option>
-                        <option value="YM">E-mini Dow Jones (YM)</option>
-                        <option value="RTY">E-mini Russell 2000 (RTY)</option>
-                        <option value="CL">Crude Oil (CL)</option>
-                        <option value="GC">Gold (GC)</option>
-                        <option value="SI">Silver (SI)</option>
-                        <option value="NG">Natural Gas (NG)</option>
-                        <option value="ZN">10-Year Treasury Note (ZN)</option>
-                        <option value="ZB">30-Year Treasury Bond (ZB)</option>
-                        <option value="6E">Euro FX (6E)</option>
-                        <option value="6B">British Pound (6B)</option>
-                        <option value="6J">Japanese Yen (6J)</option>
-                        <option value="ZC">Corn (ZC)</option>
-                        <option value="ZS">Soybeans (ZS)</option>
-                        <option value="ZW">Wheat (ZW)</option>
+                    <label for="asset-select">Activo</label>
+                    <select id="asset-select" class="input-field">
+                        <!-- Options will be populated by JavaScript -->
                     </select>
                 </div>
 
+                <!-- Cantidad de Riesgo -->
                 <div class="input-group">
-                    <label for="stopLossTicks">🛑 Stop Loss (Ticks)</label>
-                    <input type="number" id="stopLossTicks" placeholder="Ej: 8" min="1" step="1">
+                    <label for="risk-amount">Riesgo en Dólares ($)</label>
+                    <input type="number" id="risk-amount" placeholder="Ej: 100" class="input-field">
                 </div>
 
-                <button class="calculate-btn" onclick="calculateContracts()">
-                    🧮 Calcular Contratos
-                </button>
-            </div>
+                <!-- Stop Loss -->
+                <div class="input-group">
+                    <label>Stop Loss</label>
+                    <div class="sl-type-buttons">
+                        <button id="ticks-btn" class="sl-type-btn active">Ticks</button>
+                        <button id="points-btn" class="sl-type-btn">Puntos</button>
+                    </div>
+                    <input type="number" id="sl-value" placeholder="Ej: 10" step="1" class="input-field">
+                </div>
 
-            <div class="results-section">
-                <h2 style="margin-bottom: 20px; color: #2c3e50;">📋 Resultados</h2>
-                <div id="results">
-                    <div style="text-align: center; color: #7f8c8d; padding: 40px;">
-                        <p>Ingresa los datos y presiona calcular para ver los resultados</p>
+                <!-- Información del Activo -->
+                <div id="asset-info" class="asset-info">
+                    <h3>Información del Activo</h3>
+                    <div class="asset-info-grid">
+                        <div>Valor por Tick: <span id="tick-value">$0</span></div>
+                        <div>Tamaño Tick: <span id="tick-size">0</span></div>
+                        <div>1 Punto = <span id="points-to-ticks">0</span> Ticks</div>
+                        <div>Símbolo: <span id="symbol">-</span></div>
                     </div>
                 </div>
             </div>
 
-            <div class="info-section">
-                <h3 style="color: #2c3e50; margin-bottom: 15px;">ℹ️ Información de Contratos</h3>
-                <div class="info-grid" id="assetInfo">
-                    <div class="info-card">
-                        <h4>Selecciona un activo</h4>
-                        <p>Elige un activo de la lista para ver su información detallada</p>
+            <!-- Panel de Resultados -->
+            <div class="results-panel">
+                <h2 class="panel-title">
+                    <svg class="trend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                        <polyline points="17 6 23 6 23 12"/>
+                    </svg>
+                    Resultados
+                </h2>
+
+                <div id="results-content">
+                    <div class="no-results">
+                        <svg class="calculator-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="2" width="16" height="20" rx="2"/>
+                            <line x1="8" y1="6" x2="16" y2="6"/>
+                            <line x1="8" y1="10" x2="16" y2="10"/>
+                            <line x1="8" y1="14" x2="16" y2="14"/>
+                            <line x1="8" y1="18" x2="16" y2="18"/>
+                        </svg>
+                        <p>Ingresa los datos para ver los resultados</p>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>* Los cálculos son aproximados. Siempre verifica con tu broker antes de operar.</p>
         </div>
     </div>
 
